@@ -1,0 +1,28 @@
+const express = require("express")
+const cors = require("cors")
+const morgan = require("morgan")
+const dotenv = require("dotenv")
+const colors = require("colors")
+const port = process.env.PORT || 9988
+const app = express();
+const path = require("path")
+
+// load config and vars
+dotenv.config({ path: "./config/config.env" })
+
+// app middlewares
+app.use(express.json())
+app.use(cors())
+
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan("dev"))
+}
+
+// default routes
+app.get("/", (req, res) => {
+    res.status(200).json({ success: true })
+})
+
+app.listen(port, ()=>{
+    console.log(`The server is running in ${process.env.NODE_ENV}`.yellow.bold);
+})
