@@ -1,28 +1,34 @@
-const express = require("express")
-const cors = require("cors")
-const morgan = require("morgan")
-const dotenv = require("dotenv")
-const colors = require("colors")
-const port = process.env.PORT || 9988
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
+const colors = require("colors");
+const port = process.env.PORT || 9988;
 const app = express();
-const path = require("path")
+const path = require("path");
 
 // load config and vars
-dotenv.config({ path: "./config/config.env" })
+dotenv.config({ path: "./config/config.env" });
+const ConnectDB = require("./config/db");
 
 // app middlewares
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
-if (process.env.NODE_ENV === 'development') {
-    app.use(morgan("dev"))
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
 }
+
+// db connected
+ConnectDB();
 
 // default routes
 app.get("/", (req, res) => {
-    res.status(200).json({ success: true })
-})
+  res
+    .status(200)
+    .json({ success: true, data: "The Main Server Is Running Now!" });
+});
 
-app.listen(port, ()=>{
-    console.log(`The server is running in ${process.env.NODE_ENV}`.yellow.bold);
-})
+app.listen(port, () => {
+  console.log(`The server is running in ${process.env.NODE_ENV} on port ${process.env.PORT}`.yellow.bold);
+});
