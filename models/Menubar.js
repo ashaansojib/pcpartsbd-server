@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const MenuSchema = new mongoose.Schema({
   title: {
     type: String,
-    unique: trie,
+    unique: true,
     required: [true, "Must have a title"],
   },
   link: {
