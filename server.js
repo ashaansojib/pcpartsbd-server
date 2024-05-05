@@ -15,12 +15,18 @@ const ConnectDB = require("./config/db");
 app.use(express.json());
 app.use(cors());
 
+// load routes here
+const products = require("./routes/Products");
+
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
 // db connected
 ConnectDB();
+
+// routes called here
+app.use("/api/products", products);
 
 // default routes
 app.get("/", (req, res) => {
@@ -30,5 +36,8 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`The server is running in ${process.env.NODE_ENV} on port ${process.env.PORT}`.yellow.bold);
+  console.log(
+    `The server is running in ${process.env.NODE_ENV} on port ${process.env.PORT}`
+      .yellow.bold
+  );
 });

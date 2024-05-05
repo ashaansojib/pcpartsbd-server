@@ -1,2 +1,2 @@
 ### Installed Package
-* node express, mongoose, morgan, colors, dotenv, nodemon
+* node express, mongoose, morgan, colors, dotenv, nodemon, slugify
