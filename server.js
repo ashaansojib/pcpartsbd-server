@@ -20,6 +20,7 @@ app.use(cors());
 
 // routes called here
 app.use("/api/products", products);
+app.use("/api/products/:id", products);
 
 // db connected
 ConnectDB();
