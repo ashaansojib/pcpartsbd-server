@@ -23,6 +23,12 @@ const ProductsSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please Add Brand Name!"],
   },
+  status: {
+    type: String,
+  },
+  model: {
+    type: String,
+  },
   fileName: {
     type: String,
   },
@@ -39,8 +45,8 @@ const ProductsSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-// productSchema.pre("save", function (next) {
-//   this.fileName = slugify(this.title, { lower: true });
-//   next();
-// });
+ProductsSchema.pre("save", function (next) {
+  this.fileName = slugify(this.title, { lower: true });
+  next();
+});
 module.exports = mongoose.model("pcpartsbdProducts", ProductsSchema);
