@@ -11,4 +11,5 @@ router.route("/").get(getProducts);
 router.route("/").post(createProduct);
 router.route("/:id").delete(removeProduct);
 router.route("/:id").get(singleProduct);
+router.route("/:category").get(singleProduct);
 module.exports = router;

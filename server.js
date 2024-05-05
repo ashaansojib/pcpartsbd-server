@@ -21,6 +21,7 @@ app.use(cors());
 // routes called here
 app.use("/api/products", products);
 app.use("/api/products/:id", products);
+app.use("/api/products/:category", products);
 
 // db connected
 ConnectDB();
