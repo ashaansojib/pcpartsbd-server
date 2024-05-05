@@ -11,6 +11,9 @@ const ProductsSchema = new mongoose.Schema({
     type: String,
     required: [true, "Add a description must!"],
   },
+  keyFeature: {
+    type: Array,
+  },
   image: {
     type: String,
     required: [true, "Please add a image link"],
