@@ -24,6 +24,7 @@ app.use("/api/products", products);
 app.use("/api/products/:id", products);
 app.use("/api/products/:category", products);
 app.use("/api/menus", menuitems);
+app.use("/api/menus/:id", menuitems);
 // db connected
 ConnectDB();
 

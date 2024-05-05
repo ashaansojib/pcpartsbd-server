@@ -13,3 +13,8 @@ exports.createMenus = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, count: add.length, data: add });
 });
+exports.removeMenuItem = asyncHandler(async (req, res, next) => {
+  const id = req.params.id;
+  const remove = await pcpartsbdMenu.deleteOne({ _id: id });
+  res.status(200).json({ success: true, data: remove });
+})
