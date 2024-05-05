@@ -10,23 +10,26 @@ const path = require("path");
 // load config and vars
 dotenv.config({ path: "./config/config.env" });
 const ConnectDB = require("./config/db");
+const errorHandler = require("./middleware/error");
+// load routes here
+const products = require("./routes/Products");
 
 // app middlewares
 app.use(express.json());
 app.use(cors());
 
-// load routes here
-const products = require("./routes/Products");
-
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
-}
+// routes called here
+app.use("/api/products", products);
 
 // db connected
 ConnectDB();
 
-// routes called here
-app.use("/api/products", products);
+// error
+app.use(errorHandler);
+
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
 
 // default routes
 app.get("/", (req, res) => {

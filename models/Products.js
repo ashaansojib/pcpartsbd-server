@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 
-const productSchema = new mongoose.Schema({
+const ProductsSchema = new mongoose.Schema({
   title: {
     type: String,
     unique: true,
@@ -10,6 +10,10 @@ const productSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, "Add a description must!"],
+  },
+  image: {
+    type: String,
+    required: [true, "Please add a image link"],
   },
   category: {
     type: String,
@@ -27,6 +31,7 @@ const productSchema = new mongoose.Schema({
     required: [true, "Add product price as number"],
   },
   discount: {
+    default: 10,
     type: Number,
   },
   createdAt: {
@@ -34,8 +39,8 @@ const productSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-productSchema.pre("save", function (next) {
-  this.fileName = slugify(this.title, { lower: true });
-  next();
-});
-module.exports = mongoose.model("allProducts", productSchema);
+// productSchema.pre("save", function (next) {
+//   this.fileName = slugify(this.title, { lower: true });
+//   next();
+// });
+module.exports = mongoose.model("pcpartsbdProducts", ProductsSchema);
