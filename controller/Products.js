@@ -36,7 +36,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
   const products = await query;
   res.status(200).json({
     success: true,
-    count: products.length,
+    count: total,
     pagination,
     data: products,
   });
