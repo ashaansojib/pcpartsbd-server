@@ -14,7 +14,8 @@ const errorHandler = require("./middleware/error");
 // load routes here
 const products = require("./routes/Products");
 const menuitems = require("./routes/Menubar");
-const users = require("./routes/Users")
+const users = require("./routes/Users");
+const buyItem = require("./routes/AddCart");
 // app middlewares
 app.use(express.json());
 app.use(cors());
@@ -25,8 +26,10 @@ app.use("/api/products/:id", products);
 app.use("/api/products/:category", products);
 app.use("/api/menus", menuitems);
 app.use("/api/menus/:id", menuitems);
-app.use("/api/users", users)
-app.use("/api/users/:id", users)
+app.use("/api/users", users);
+app.use("/api/users/:id", users);
+app.use("/api/buy-items", buyItem);
+app.use("/api/buy-items/:id", buyItem);
 // db connected
 ConnectDB();
 

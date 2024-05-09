@@ -52,8 +52,8 @@ exports.createProduct = asyncHandler(async (req, res, next) => {
 
 // @title: remove single product, route: /api/products/:id, access: delete
 exports.singleProduct = asyncHandler(async (req, res, next) => {
-  const id = req.params.id;
-  const product = await pcpartsbdProducts.findOne({ _id: id });
+  const id = req.params.fileName;
+  const product = await pcpartsbdProducts.findOne({ fileName: id });
 
   res.status(200).json({ success: true, data: product });
 });
