@@ -16,6 +16,6 @@ exports.createBuyItem = asyncHandler(async (req, res, next) => {
 // @title: remove buy item, api: /api/buy-items, access: privet
 exports.removeBuyItem = asyncHandler(async (req, res, next) => {
   const id = req.params.id;
-  const removeItem = await BuyPacked.deleteOne(id);
+  const removeItem = await BuyPacked.deleteOne({ _id: id });
   res.status(200).json({ success: true, data: removeItem });
 });
