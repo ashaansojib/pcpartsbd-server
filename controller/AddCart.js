@@ -40,3 +40,15 @@ exports.removeBuyItem = asyncHandler(async (req, res, next) => {
   const removeItem = await BuyPacked.deleteOne({ _id: id });
   res.status(200).json({ success: true, data: removeItem });
 });
+
+// @title: order confirm and remove item from carts, route: /api/buy-items
+exports.orderConfirm = asyncHandler(async (req, res, next) => {
+  const remove = await BuyPacked.deleteMany({});
+  res
+    .status(200)
+    .json({
+      success: true,
+      message: "Remove all item and bought successfully!",
+      data: remove,
+    });
+});
