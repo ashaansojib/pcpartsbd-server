@@ -5,7 +5,7 @@ exports.getBuyItems = asyncHandler(async (req, res, next) => {
   const items = await BuyPacked.find();
   let totalPrice = 0;
   items.forEach((item) => {
-    totalPrice += item.price;
+    totalPrice += item.totalPrice;
   });
   res.status(200).json({
     success: true,
