@@ -23,6 +23,17 @@ exports.createBuyItem = asyncHandler(async (req, res, next) => {
   res.status(201).json({ success: true, data: result });
 });
 
+// @title: update quantity and price, api: /api/buy-items/:id, access: public
+exports.updateQuantity = asyncHandler(async (req, res, next) => {
+  const id = req.params.id;
+  const { quantity } = req.body;
+  const product = await BuyPacked.findById(id);
+  product.quantity = quantity;
+  product.totalPrice = product.price * quantity;
+  await product.save();
+  res.status(200).json({ success: true, data: product });
+});
+
 // @title: remove buy item, api: /api/buy-items, access: privet
 exports.removeBuyItem = asyncHandler(async (req, res, next) => {
   const id = req.params.id;
