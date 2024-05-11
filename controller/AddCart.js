@@ -3,7 +3,16 @@ const BuyPacked = require("../models/AddCart");
 // @title: get all bought item, api: /api/buy-items, access: public
 exports.getBuyItems = asyncHandler(async (req, res, next) => {
   const items = await BuyPacked.find();
-  res.status(200).json({ success: true, count: items.length, data: items });
+  let totalPrice = 0;
+  items.forEach((item) => {
+    totalPrice += item.price;
+  });
+  res.status(200).json({
+    success: true,
+    totalPrice: totalPrice,
+    count: items.length,
+    data: items,
+  });
 });
 
 // @title: create cart item, api: /api/buy-items, access: privet
@@ -11,7 +20,7 @@ exports.createBuyItem = asyncHandler(async (req, res, next) => {
   const item = req.body;
   const result = await BuyPacked.create(item);
   console.log(item);
-  res.status(201).json({ success: true, totalPrice: item.totalPrice, data: result });
+  res.status(201).json({ success: true, data: result });
 });
 
 // @title: remove buy item, api: /api/buy-items, access: privet
