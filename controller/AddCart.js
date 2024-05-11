@@ -10,7 +10,8 @@ exports.getBuyItems = asyncHandler(async (req, res, next) => {
 exports.createBuyItem = asyncHandler(async (req, res, next) => {
   const item = req.body;
   const result = await BuyPacked.create(item);
-  res.status(201).json({ success: true, data: result });
+  console.log(item);
+  res.status(201).json({ success: true, totalPrice: item.totalPrice, data: result });
 });
 
 // @title: remove buy item, api: /api/buy-items, access: privet
