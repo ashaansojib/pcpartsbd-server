@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const CategorySchema = new mongoose.Schema({
-  name: {
+  title: {
     type: String,
     unique: true,
     required: [true, "Please add a name"],
@@ -9,4 +9,9 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     required: [true, "Please add a image link"],
   },
+  link: {
+    type: String,
+    required: [true, "Please add a link"],
+  },
 });
+module.exports = mongoose.model("featuredCategory", CategorySchema);

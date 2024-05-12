@@ -16,6 +16,7 @@ const products = require("./routes/Products");
 const menuitems = require("./routes/Menubar");
 const users = require("./routes/Users");
 const buyItem = require("./routes/AddCart");
+const features = require("./routes/Category");
 // app middlewares
 app.use(express.json());
 app.use(cors());
@@ -30,6 +31,7 @@ app.use("/api/users", users);
 app.use("/api/users/:id", users);
 app.use("/api/buy-items", buyItem);
 app.use("/api/buy-items/:id", buyItem);
+app.use("/api/features", features);
 // db connected
 ConnectDB();
 
