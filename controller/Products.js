@@ -4,17 +4,18 @@ const errorResponse = require("../utils/errorResponse");
 
 // @title: get all products, route: /api/products, access: public
 exports.getProducts = asyncHandler(async (req, res, next) => {
-  let query = pcpartsbdProducts.find();
+  let reqQuery = req.query;
+  let queryStr = JSON.stringify(reqQuery);
+  queryStr = queryStr.replace(
+    /\b(gt|gte|lt|lte|in)\b/g,
+    (match) => `$${match}`
+  );
 
-  // filter item by category
-  if (req.query.category) {
-    query = query.find(req.query);
-  }
-
-  // sort by price
-  if(req.query.sortByPrice){
-    const sortByPrice = req.query.sortByPrice === 'ascending' ? 1 : -1;
-    query = query.sort({price: sortByPrice})
+  if (reqQuery.category) {
+    const queryData = await pcpartsbdProducts.find(JSON.parse(queryStr));
+    return res
+      .status(200)
+      .json({ success: true, count: queryData.length, data: queryData });
   }
 
   // pagination
@@ -24,7 +25,7 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
   const endIndex = page * limit;
   const total = await pcpartsbdProducts.countDocuments();
 
-  query = query.skip(startIndex).limit(limit);
+  const query = await pcpartsbdProducts.find().skip(startIndex).limit(limit);
   // pagination result
   const pagination = {};
   if (endIndex < total) {
