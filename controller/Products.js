@@ -17,7 +17,14 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
       .status(200)
       .json({ success: true, count: queryData.length, data: queryData });
   }
-
+  if (reqQuery.search) {
+    const searchData = await pcpartsbdProducts.find({
+      name: { $regex: JSON.stringify(reqQuery), $options: "i" },
+    });
+    return res
+      .status(200)
+      .json({ success: true, count: searchData.length, data: searchData });
+  }
   // pagination
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 10;
