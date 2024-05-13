@@ -11,20 +11,23 @@ exports.getProducts = asyncHandler(async (req, res, next) => {
     (match) => `$${match}`
   );
 
+  // for getting by cat, also getting by price
   if (reqQuery.category) {
     const queryData = await pcpartsbdProducts.find(JSON.parse(queryStr));
     return res
       .status(200)
       .json({ success: true, count: queryData.length, data: queryData });
   }
+  // for search any text around the title
   if (reqQuery.search) {
     const searchData = await pcpartsbdProducts.find({
-      name: { $regex: JSON.stringify(reqQuery), $options: "i" },
+      title: new RegExp(reqQuery.search, "i"),
     });
     return res
       .status(200)
       .json({ success: true, count: searchData.length, data: searchData });
   }
+
   // pagination
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 10;
